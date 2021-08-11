@@ -9,17 +9,19 @@ namespace CasaDoCodigo
     class DataService : IDataService
     {
         private readonly ApplicationContext contexto;
+        private readonly IProdutoRepository produtoRepository;
 
-        public DataService(ApplicationContext contexto)
+        public DataService(ApplicationContext contexto, IProdutoRepository produtoRepository)
         {
             this.contexto = contexto;
+            this.produtoRepository = produtoRepository;
         }
 
         public void InicializaDB()
         {
             contexto.Database.EnsureCreated();
             List<Livro> livros = GetLivros();
-            SaveProdutos(livros);
+            produtoRepository.SaveProdutos(livros);
         }
 
         
